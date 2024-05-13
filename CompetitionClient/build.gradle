@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+javafx {
+    version="17"
+    modules = [ 'javafx.controls', 'javafx.fxml'  ]
+}
+dependencies {
+
+    implementation 'com.anatawa12.lightweight-protobuf:lightweight-protobuf:0.0.1'
+    implementation 'com.classpass.oss.protobuf.reflection:protobuf-reflection:1.0.0'
+    implementation project(path: ':CompetitionServicies')
+    implementation project(path: ':Networking')
+    implementation project(path: ':CompetitionModel')
+    implementation project(path: ':')
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.23.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.23.1'
+    implementation 'org.openjfx:javafx-controls:17' // Am actualizat aici versiunea la 17
+    implementation 'org.openjfx:javafx-fxml:17'
+}
+application{
+    mainClass='C:\\Users\\bianc\\IdeaProjects\\serverClientGrpc\\CompetitionClient\\src\\main\\java\\org\\example\\StartRpcClientFx.java'
+}
+test {
+    useJUnitPlatform()
+}

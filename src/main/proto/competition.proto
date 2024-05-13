@@ -1,0 +1,83 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_outer_classname = "serverClientGrpc";
+option objc_class_prefix = "CompetitionProtobufs";
+message CompetitionRequest{
+  enum Type { Unknown=0; LOGIN=1; LOGOUT=2; FIND_ORGANIZING=3;
+    NUMBER_OF_CHILDREN_FOR_SAMPLE=4 ;FIND_ALL_SAMPLES=5;
+    FIND_SAMPLE=6; REGISTER_CHILD=7; FIND_CHILD=8;
+    SAVE_CHILD=9; NEW=10; LIST_CHILDREN_FOR_SAMPLE=11;OK=12;ERROR=13; }
+
+  // Identifies which request is filled in.
+  Type type = 12;
+  oneof playload {
+    // One of the following will be filled in, depending on the type.
+    OrganizingDTO organizing = 1;
+    OrganizingDTO organizing_logout = 2;
+    OrganizingDTO organizing_find = 3;
+    SampleDTO sample = 4;
+    string empty = 5;
+    SampleDTO sample_find = 6;
+    RegistrationDTO registration = 7;
+    ChildDTO child = 8;
+    ChildDTO child_saved = 9;
+    SampleDTO samples = 11;
+    New new=10;
+  }
+
+}
+message CompetitionResponse{
+  enum Type_Response { Unknown_Response=0; ORGANIZING_LOGGED_IN_Response=1;
+    OK_Response=2; REGISTER_CHILD=3;
+    ORGANIZING_LOGGED_OUT_Response=4; FIND_ALL_SAMPLES_Response=5;
+    FIND_ORGANIZING_Response=6 ;FIND_SAMPLE_Response=7;
+    LIST_CHILDREN_Response=8;
+    FIND_CHILD_Response=9; SAVE_CHILD_Response=10;
+    REGISTER_CHILD_Response=11 ;NEW_Response=12;
+    NUMBER_OF_CHILDREN_FOR_SAMPLE_Response=13; ERROR_Response=14;  }
+
+  Type_Response type_Response = 2;
+  RegistrationDTO registration = 3;
+  string error = 14;
+  OrganizingDTO organizing_resp = 1;
+  OrganizingDTO organizing_resp2 = 4;
+  repeated SampleDTO samples_res = 5;
+  OrganizingDTO organizing = 6;
+  SampleDTO sample = 7;
+  repeated ChildDTO children = 8;
+  ChildDTO child = 9;
+  New new=12;
+  ChildDTO child_saved = 10;
+  string number = 13;
+}
+message SampleDTO{
+  string id = 1;
+  string sampleCategory = 2;
+  string ageCategory =3;
+}
+message RegistrationDTO{
+  string childId = 1;
+  string sampleId = 2;
+  string sampleCategory = 3;
+  string ageCategory = 4;
+}
+message ChildDTO{
+  string id = 1;
+  string name = 2;
+  string age = 3;
+  string number = 4;
+}
+message OrganizingDTO{
+  string id = 1;
+  string username = 2;
+  string password = 3;
+  string name = 4;
+}
+message  New{
+  string sampleId=1;
+  string number=2;
+    }
+
+
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="org.example.Hibernate.Child">
+        <table name="children" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="-1"/>
+            </id>
+            <basic name="age">
+                <column name="age" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="name">
+                <column name="name" nullable="false" length="200"/>
+            </basic>
+            <basic name="numberOfSamples">
+                <column name="number_of_samples" nullable="false" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

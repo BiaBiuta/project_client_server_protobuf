@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.8.17'
+
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.protobuf:protobuf-java:4.26.1'
+//    implementation 'io.grpc:grpc-netty-shaded:1.63.0'
+//    implementation 'io.grpc:protoc-gen-grpc-java:1.63.0'
+//    //implementation 'io.grpc:grpc-protobuf:1.15.1'
+//    implementation 'io.grpc:grpc-stub:1.63.0'
+//    implementation 'com.anatawa12.lightweight-protobuf:lightweight-protobuf:0.0.1'
+//    implementation 'com.classpass.oss.protobuf.reflection:protobuf-reflection:1.0.0'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    //implementation 'org.hibernate:hibernate-core:6.5.0.Final'
+    //implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    //https://mvnrepository.com/artifact/io.grpc/grpc-protobuf
+    //implementation 'io.grpc:grpc-protobuf:1.63.0'
+
+    // https://mvnrepository.com/artifact/io.grpc/protoc-gen-grpc-java
+    //implementation group: 'io.grpc', name: 'protoc-gen-grpc-java', version: '1.0.0', ext: 'pom'
+
+}
+//protobuf {
+//    protoc {
+//        // Specify the location of protoc if needed
+//        // path = '/path/to/protoc'
+//    }
+//    plugins {
+//
+//        grpc {
+//            // Specify the artifact for the grpc-java plugin
+//            artifact = 'io.grpc:protoc-gen-grpc-java:1.63.0'
+//        }
+//        // Add the common plugin for Java generation
+//        javalite {
+//            // Specify the artifact for the javalite plugin
+//            //artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+//        }
+//    }
+//    generateProtoTasks {
+//        // Configure all generateProto tasks to use the plugins
+//        all().each { task ->
+//            task.plugins {
+//                // Enable the grpc plugin for each task
+//                grpc {}
+//                // Enable the javalite plugin for each task
+//                javalite {}
+//            }
+//        }
+//    }
+//}
+test {
+    useJUnitPlatform()
+}

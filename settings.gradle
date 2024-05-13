@@ -1,0 +1,10 @@
+rootProject.name = 'serverClientGrpc'
+include 'CompetitionClient'
+include 'CompetitionModel'
+include 'CompetitionPersistance'
+include 'CompetitionService'
+include 'CompetitionServicies'
+include 'CompetitionServer'
+include 'Networking'
+include 'Net'
+
