@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -72,6 +73,50 @@ public class SampleRepository implements ISampleRepository{
         return sample;
     }
 
+    @Override
+    public Sample updateSample(Sample sample) {
+        Connection con = dbUtils.getConnection();
+        try(PreparedStatement preparedStatement=con.prepareStatement("update samples set sample_categories=?,age_category=? where id_sample=?")){
+            preparedStatement.setString(1,sample.getSampleCategory().toString());
+            preparedStatement.setString(2,sample.getAgeCategory().toString());
+            preparedStatement.setInt(3,sample.getId());
+            int rowsAffected=preparedStatement.executeUpdate();
+            if (rowsAffected == 1) {
+                logger.trace("Updated sample {}",sample);
+            } else {
+                logger.error("Update sample failed");
+            }
+        }catch (Exception e){
+            logger.error(e);
+            System.out.println("Error DB " + e);
+            logger.traceExit();
+            return null;
+        }
+        logger.traceExit();
+        return sample;
+    }
+
+    @Override
+    public Sample deleteSample(Sample sample) {
+        logger.traceEntry("deleting sample {}",sample);
+        Connection con = dbUtils.getConnection();
+        try(PreparedStatement preparedStatement=con.prepareStatement("delete from samples where id_sample=?")){
+            preparedStatement.setInt(1,sample.getId());
+            int rowsAffected=preparedStatement.executeUpdate();
+            if (rowsAffected == 1) {
+                logger.trace("Deleted sample {}",sample);
+            } else {
+                logger.error("Delete sample failed");
+            }
+        }catch (Exception e){
+            logger.error(e);
+            System.out.println("Error DB " + e);
+            logger.traceExit();
+            return null;
+        }
+        logger.traceExit();
+        return sample;
+    }
 
 
     @Override
@@ -102,6 +147,34 @@ public class SampleRepository implements ISampleRepository{
 
     @Override
     public Sample save(Sample entityForAdd) {
-        return null;
+        logger.traceEntry("saving sample {}",entityForAdd);
+        Connection con = dbUtils.getConnection();
+        try(PreparedStatement preparedStatement=con.prepareStatement("insert into samples (sample_categories,age_category) values (?,?)")){
+            preparedStatement.setString(1,entityForAdd.getSampleCategory().toString());
+            preparedStatement.setString(2,entityForAdd.getAgeCategory().toString());
+            int rowsAffected=preparedStatement.executeUpdate();
+            if (rowsAffected == 1) {
+                try (Statement statement = con.createStatement()) {
+                    try (ResultSet resultSet = statement.executeQuery("SELECT last_insert_rowid()")) {
+                        if (resultSet.next()) {
+                            int id = resultSet.getInt(1);
+                            entityForAdd.setId(id);
+                        } else {
+                            logger.error("Nu s-au găsit chei generate pentru inserarea entității");
+                        }
+                    }
+                }
+            } else {
+                logger.error("Inserarea entității a eșuat");
+            }
+            logger.trace("Saved sample {}",entityForAdd);
+        }catch (Exception e){
+            logger.error(e);
+            System.out.println("Error DB " + e);
+            logger.traceExit();
+            return null;
+        }
+        logger.traceExit();
+        return entityForAdd;
     }
 }

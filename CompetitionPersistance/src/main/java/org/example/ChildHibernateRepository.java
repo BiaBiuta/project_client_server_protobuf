@@ -6,6 +6,7 @@ import org.example.Hibernate.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.Objects;
 import java.util.Properties;
 
 public class ChildHibernateRepository implements IChildRepository{
@@ -20,17 +21,33 @@ public class ChildHibernateRepository implements IChildRepository{
 
     @Override
     public Child update(Child entityForUpdate) {
-        return null;
+        HibernateUtils.getSessionFactory().inTransaction(session -> {
+            if (!Objects.isNull(session.find(Child.class, entityForUpdate.getId()))) {
+                //System.out.println("Am dat update la "+entityForUpdate.getId());
+                logger.info("Am dat update la {}", entityForUpdate.getId());
+                session.merge(entityForUpdate);
+                session.flush();
+            }
+        });
+        return entityForUpdate;
     }
 
     @Override
     public Child findByName(String name) {
-        return null;
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            return session.createSelectionQuery("from Child where name=:nameM ", Child.class)
+                    .setParameter("nameM", name)
+                    .getSingleResultOrNull();
+        }
     }
 
     @Override
     public Child findOne(Integer integer) {
-        return null;
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            return session.createSelectionQuery("from Child where id=:idM ", Child.class)
+                    .setParameter("idM", integer)
+                    .getSingleResultOrNull();
+        }
     }
 
     @Override
@@ -46,6 +63,7 @@ public class ChildHibernateRepository implements IChildRepository{
             session.persist(entityForAdd);
             System.out.println("Child added");
             System.out.println(entityForAdd.getId());
+            logger.info("Child added with id {}", entityForAdd.getId());
         });
         return entityForAdd;
     }

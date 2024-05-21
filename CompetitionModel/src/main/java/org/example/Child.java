@@ -57,4 +57,14 @@ public class Child extends GenericEntity<Integer> implements Serializable {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "Child{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                ", numberOfSamples=" + numberOfSamples +
+                ", id=" + id +
+                '}';
+    }
 }

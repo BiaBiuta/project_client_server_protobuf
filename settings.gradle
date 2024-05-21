@@ -7,4 +7,5 @@ include 'CompetitionServicies'
 include 'CompetitionServer'
 include 'Networking'
 include 'Net'
+include 'RestServices'
 

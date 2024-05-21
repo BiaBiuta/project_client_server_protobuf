@@ -23,12 +23,15 @@ public class StartRpcServer {
         }
         OrganizingRepository organizingRepo = new OrganizingRepository(serverProps);
         SampleRepository sampleRepository=new SampleRepository(serverProps);
-        //ChildRepository childRepository=new ChildRepository(serverProps);
+        ChildRepository childRepository=new ChildRepository(serverProps);
         //ChildRepoHib childRepository=new ChildRepoHib(serverProps);
-        ChildHibernateRepository childRepository=new ChildHibernateRepository(serverProps);
+        //ChildHibernateRepository childRepository=new ChildHibernateRepository(serverProps);
         //childRepository.findAll().forEach(System.out::println);
-        childRepository.save(new Child("test",10));
-        childRepository.findAll().forEach(System.out::println);
+        //childRepository.save(new Child("test",10));
+//        Child child = childRepository.findByName("test1");
+//        child.setAge(9);
+//        childRepository.update(child);
+//        childRepository.findAll().forEach(System.out::println);
         RegistrationRepository registrationRepository = new RegistrationRepository(serverProps,childRepository,sampleRepository);
         ICompetitionServices competitionServerImpl = new CompetitionServerProtoIml(organizingRepo, registrationRepository, childRepository,sampleRepository);
         int competitionServerPort = defaultPort;

@@ -8,12 +8,12 @@ import java.util.concurrent.Executors;
 public class CompetitionServerProtoIml implements ICompetitionServices{
     private OrganizingRepository orgRepo;
     private RegistrationRepository regRepo;
-    private ChildHibernateRepository childRepo;
+    private ChildRepository childRepo;
     //private   childRepo;
     private SampleRepository sampleRepository;
     private Map<Integer , ICompetitionObserver> loggedClients;
 
-    public CompetitionServerProtoIml(OrganizingRepository orgRepo, RegistrationRepository regRepo, ChildHibernateRepository childRepo, SampleRepository sampleRepository) {
+    public CompetitionServerProtoIml(OrganizingRepository orgRepo, RegistrationRepository regRepo, ChildRepository childRepo, SampleRepository sampleRepository) {
         this.orgRepo = orgRepo;
         this.regRepo = regRepo;
         this.childRepo = childRepo;
@@ -53,6 +53,27 @@ public class CompetitionServerProtoIml implements ICompetitionServices{
     }
     public Iterable<Sample> findAllSamples(){
         return sampleRepository.findAll();
+    }
+
+    @Override
+    public Sample updateSample(Sample sample) throws CompetitionException {
+        return sampleRepository.updateSample(sample);
+    }
+
+    @Override
+    public Sample deleteSample(Sample sample) throws CompetitionException {
+    return sampleRepository.deleteSample(sample);
+    }
+
+    @Override
+    public Sample findSampleById(Integer id) throws CompetitionException {
+        return sampleRepository.findOne(id);
+    }
+
+    @Override
+    public Sample createSample(Sample sample) throws CompetitionException {
+
+        return sampleRepository.save(sample);
     }
 
     @Override

@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/CompetitionServicies" />
             <option value="$PROJECT_DIR$/Net" />
             <option value="$PROJECT_DIR$/Networking" />
+            <option value="$PROJECT_DIR$/RestServices" />
           </set>
         </option>
       </GradleProjectSettings>

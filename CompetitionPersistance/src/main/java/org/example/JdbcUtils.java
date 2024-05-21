@@ -19,9 +19,9 @@ public class JdbcUtils {
     private Connection instance = null;
     private Connection getNewConnection(){
         logger.traceEntry();
-        String url = jbdcProps.getProperty("competition.jdbc.url");
-        String user = jbdcProps.getProperty("competition.jdbc.url");
-        String pass = jbdcProps.getProperty("competition.jdbc.url");
+        String url = jbdcProps.getProperty("jdbc.url");
+        String user = jbdcProps.getProperty("jdbc.url");
+        String pass = jbdcProps.getProperty("jdbc.url");
         logger.info("trying to connect to database ... {}",url);
         logger.info("user: {}",user);
         logger.info("pass: {}", pass);

@@ -168,6 +168,31 @@ public class ProtoChatProxy implements ICompetitionServices {
     }
 
     @Override
+    public Sample updateSample(Sample sample) throws CompetitionException {
+        return null;
+    }
+
+    @Override
+    public Sample deleteSample(Sample sample) throws CompetitionException {
+        return null;
+    }
+
+    @Override
+    public Sample findSampleById(Integer id) throws CompetitionException {
+        return null;
+    }
+
+    @Override
+    public Sample createSample(Sample sample) throws CompetitionException {
+        return null;
+    }
+
+//    @Override
+//    public Sample createSample(String ageCategory, String desen) throws CompetitionException {
+//        return null;
+//    }
+
+    @Override
     public org.example.Child saveChild(String name, int age) throws CompetitionException {
         sendRequest(ProtoUtils.createSaveChildRequest(name,age));
         CompetitionResponse response=readResponse();
